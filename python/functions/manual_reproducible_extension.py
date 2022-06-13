@@ -23,7 +23,7 @@ def reproducible_extension(S: bytearray, j: int) -> Tuple:
     i: int = 0
     while i <= j:
         extension: int = 1
-        while ((extension <= len(S)-(j+1)) and (S[i : i+extension] == S[(j+1) : (j+1)+extension])):
+        while ((extension < len(S)-(j+1)) and (S[i : i+extension] == S[(j+1) : (j+1)+extension])):
             extension += 1
 
         extensions.append(((extension-1), i))
