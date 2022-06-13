@@ -22,7 +22,14 @@ class CoderLZ77:
         while window_pos - self.l < len(pad_string):
             print(buffer)
             pos, size = reproducible_extension(buffer, (self.n-self.l)-1)
-            size = max([1, size])
+
+            if size == 0:
+                print(pos, size, buffer[(self.n-self.l)])
+            elif size == min(self.l, len(buffer)-(self.n-self.l)):
+                print(pos, (size-1), buffer[(self.n-self.l)+(size-1)])
+            else:
+                print(pos, size, buffer[(self.n-self.l)+size])
+            size += 1
 
             if window_pos < len(pad_string):
                 buffer = buffer[size : window_pos]
@@ -31,8 +38,7 @@ class CoderLZ77:
                 buffer = buffer[size :]
 
             window_pos += size
-            print(pos, size)
-
+            
     def codify(self, string: str, symb: str):
         self.__sliding_window_mechanism(string, symb)
 
