@@ -18,7 +18,7 @@ from typing import Tuple
             > (2, 2, 'b')
 """
 
-def reproducible_extension(search: bytearray, lookahead: bytearray, n: int, Ls: int) -> Tuple:
+def reproducible_extension(search: str, lookahead: str, n: int, Ls: int) -> Tuple:
     pos: int = -1
     size: int = 0
     char: chr = ''
@@ -34,5 +34,3 @@ def reproducible_extension(search: bytearray, lookahead: bytearray, n: int, Ls: 
             break
 
     return pos, size, char
-
-print(reproducible_extension('abbaabb','baba', 11, 4))

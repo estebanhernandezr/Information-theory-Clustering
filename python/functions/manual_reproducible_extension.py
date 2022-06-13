@@ -17,7 +17,7 @@ from typing import Tuple, List
             > (2, 2)
 """
 
-def reproducible_extension(S: bytearray, j: int) -> Tuple:
+def reproducible_extension(S: str, j: int) -> Tuple:
     extensions: List[Tuple] = []
 
     i: int = 0
