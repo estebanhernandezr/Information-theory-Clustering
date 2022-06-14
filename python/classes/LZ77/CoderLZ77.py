@@ -1,50 +1,39 @@
 import sys
-from typing import List  
 sys.path.insert(0, 'python/functions')
 
-from manual_reproducible_extension import reproducible_extension
+import slate3k as slate
+from typing import List, Tuple
+from fixed_length_codeword import code_word
+from sliding_window_mechanism import sliding_window_reproducible_extension
+
+"""
+    Function: LZ77 codifier class.
+    Authors: Esteban Hernández Ramírez & Carlos Eduardo Álvarez Cabrera.
+    Date: 13/06/2022
+
+    Reference: "II. THE COMPRESSION ALGORITHM". A Universal Algorithm for Sequential Data Compression.
+                IEEE TRANSACTIONS ON INFORMATION THEORY, MAY 1977. Jacob Ziv and Abraham Lempel.
+
+    Description: Define an LZ77 codifier as its sliding window size, lookahead buffer size, and code alphabet.
+                 Compress any given string given the codifier parameters.
+
+    Demo (usage): 
+            > codifier = CoderLZ77(n=10, l=5, alphabet=['A', 'T', 'G', 'U'])
+            > codifier.codify('abababababaaabbbbbabababbba', symb='_')
+            > codifier.codified_string
+            > TAAAaTAAAbAUTAaAUTAaATAGbTAAUaAUTAbTAAGa
+"""
 
 class CoderLZ77:
 
-    def __init__(self, n: int, l: int):
+    def __init__(self, n: int, l: int, alphabet: List):
         self.n: int = n
         self.l: int = l
-        
-    def __ini_search_buffer(self, symb: int, padsize: int, cad: str) -> str:
-        pad: str = symb
-        for i in range(1, padsize):
-            pad += symb
-        return pad + cad
-
-    def __sliding_window_mechanism(self, string: str, symb: str):
-        reproducible_extensions: List = []
-        pad_string: str = self.__ini_search_buffer(symb, self.n-self.l, string)
-        buffer: str = pad_string[: self.n]
-        window_pos: int = self.n
-        while window_pos - self.l < len(pad_string):
-            pos, size = reproducible_extension(buffer, (self.n-self.l)-1)
-
-            if size == min(self.l, len(buffer)-(self.n-self.l)):
-                reproducible_extensions.append((pos, size, None))
-            else:
-                if size == 0:
-                    reproducible_extensions.append((pos, size, buffer[(self.n-self.l)]))
-                else:
-                    reproducible_extensions.append((pos, size, buffer[(self.n-self.l)+size]))
-                size += 1
-
-            if window_pos < len(pad_string):
-                buffer = buffer[size : window_pos]
-                buffer += pad_string[window_pos : window_pos+size]
-            else:
-                buffer = buffer[size :]
-
-            window_pos += size
-        return reproducible_extensions
+        self.alphabet = alphabet
+        self.codified_string = ''
 
     def codify(self, string: str, symb: str):
-        reproducible_extensions = self.__sliding_window_mechanism(string, symb)
-        print(reproducible_extensions)
-
-codificador = CoderLZ77(10, 5)
-codificador.codify('bbbaaabbbaabbab', 'a')
+        reproducible_extensions: List[Tuple] = sliding_window_reproducible_extension(string, symb, self.n, self.l)
+        for reproducible_extension in reproducible_extensions:
+            pos, size, char = reproducible_extension
+            self.codified_string += code_word(pos, size, char, self.n, self.l, self.alphabet)

@@ -1,5 +1,6 @@
 {
     "python.analysis.extraPaths": [
-        "./python/functions"
+        "./python/functions",
+        "./python/classes/LZ77"
     ]
 }

@@ -1,5 +1,5 @@
 from typing import List
-from initialize_search_buffer import ini_search_buffer
+from initialization_search_buffer import ini_search_buffer
 from manual_reproducible_extension import reproducible_extension
 
 """
@@ -29,10 +29,7 @@ def sliding_window_reproducible_extension(string: str, symb: str, n: int, l: int
     while window_pos - l < len(pad_string):
         pos, size = reproducible_extension(buffer, (n-l)-1)
 
-        if size == 0:
-            reproducible_extensions.append((pos, size, buffer[(n-l)]))
-        else:
-            reproducible_extensions.append((pos, size, buffer[(n-l)+size]))
+        reproducible_extensions.append((pos, size, buffer[(n-l)+size]))
         size += 1
 
         if window_pos < len(pad_string):
