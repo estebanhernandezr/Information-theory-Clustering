@@ -21,12 +21,11 @@ from python_reproducible_extension import reproducible_extension
 """
 
 def sliding_window_reproducible_extension(string: str, symb: str, n: int, l: int):
-    totcode = []
-    pcad = ini_search_buffer(symb, l, string)
-    wpos = 0
+    totcode: List = []
+    pcad: str = ini_search_buffer(symb, l, string)
+    wpos: int = 0
     while wpos < len(pcad)-l:
         pos, size, char = reproducible_extension(pcad[wpos:wpos+n], pcad[wpos+l:wpos+n], n, l)
-        c = ''
         if pos >= 0:
             totcode.append((pos, size, char))
         else:
