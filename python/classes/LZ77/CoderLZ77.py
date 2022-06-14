@@ -4,7 +4,7 @@ sys.path.insert(0, 'python/functions')
 import slate3k as slate
 from typing import List, Tuple
 from fixed_length_codeword import code_word
-from sliding_window_mechanism import sliding_window_reproducible_extension
+from python_sliding_window_mechanism import sliding_window_reproducible_extension
 
 """
     Function: LZ77 codifier class.

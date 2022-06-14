@@ -32,5 +32,5 @@ def radix2dec(radix, rnum):
 def code_word(pos, size, char, n, l, alphabet):
     cd = dec2alpha(alphabet, pos).rjust(int(np.ceil(np.log(n-l) / np.log(len(alphabet)))), alphabet[0])
     cd += dec2alpha(alphabet, size).rjust(int(np.ceil(np.log(l) / np.log(len(alphabet)))), alphabet[0])
-    cd += char
+    cd += str(dec2alpha(alphabet, ord(char)))
     return cd
