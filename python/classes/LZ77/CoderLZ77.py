@@ -6,6 +6,23 @@ from typing import List, Tuple
 from fixed_length_codeword import code_word
 from sliding_window_mechanism import sliding_window_reproducible_extension
 
+"""
+    Function: LZ77 codifier class.
+    Authors: Esteban Hernández Ramírez & Carlos Eduardo Álvarez Cabrera.
+    Date: 13/06/2022
+
+    Reference: "II. THE COMPRESSION ALGORITHM". A Universal Algorithm for Sequential Data Compression.
+                IEEE TRANSACTIONS ON INFORMATION THEORY, MAY 1977. Jacob Ziv and Abraham Lempel.
+
+    Description: Define an LZ77 codifier as its sliding window size, lookahead buffer size, and code alphabet.
+                 Compress any given string given the codifier parameters.
+
+    Demo (usage): 
+            > codifier = CoderLZ77(n=10, l=5, alphabet=['A', 'T', 'G', 'U'])
+            > codifier.codify('abababababaaabbbbbabababbba', symb='_')
+            > codifier.codified_string
+            > TAAAaTAAAbAUTAaAUTAaATAGbTAAUaAUTAbTAAGa
+"""
 
 class CoderLZ77:
 
