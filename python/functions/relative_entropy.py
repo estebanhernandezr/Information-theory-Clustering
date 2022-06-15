@@ -1,3 +1,23 @@
+"""
+    Function: Calculate the relative entropy between two different texts.
+    Authors: Esteban Hernández Ramírez & Carlos Eduardo Álvarez Cabrera.
+    Date: 14/06/2022
+
+    Reference: Dario Benedetto, Emanuele Caglioti, and Vittorio Loreto. “Language Trees and Zipping”.
+               In: Physical Review Letters 88.4 (2002). doi: 10.1103/PhysRevLett.88.048702.
+
+    Description: Calculate the relative entropy between two text in terms of their compressed version.
+
+    Demo (usage):
+            > import sys
+            > sys.path.insert(1, 'python/classes/LZ77')
+            > sys.path.insert(2, 'python/classes/Phylo')
+            > from CoderLZ77 import CoderLZ77
+            > codificador = CoderLZ77(5, 2, alphabet=['0', '1'])
+            > relat_entropy1('aaaaaaa', 'bbbbbb', codificador)
+            # [3.223, 2.356]
+"""
+
 def calculate_delta(txt1, txt2, dicc):
     L1 = dicc[txt1]
     L2 = dicc[txt2]
