@@ -3,7 +3,7 @@ sys.path.insert(0, 'python/functions')
 
 import math
 from typing import List, Tuple
-from fixed_length_codeword import dec2alpha
+from fixed_length_codeword import dec2alpha, decodeWord
 from auxiliar_functions import generate_combinations_wrapper
 
 """
@@ -19,7 +19,7 @@ from auxiliar_functions import generate_combinations_wrapper
 
     Demo (usage): 
             > decodifier = DecoderLZ77(n=10, l=5, alphabet=['A', 'T', 'G', 'U'])
-            > decodifier.decodify('AAATGATAAATGAGAUTTGATAUTTGATATATGAGTAATGATAUTTGAGTAATGAT', symb='_')
+            > decodifier.decodify('AAAATGATAAAATGAGAUTATGATAUTATGATATAGTGAGTAAUTGATAUTATGAGTAAGTGAT', symb='_')
             > abababababaaabbbbbabababbba
 """
 
@@ -40,8 +40,8 @@ class DecoderLZ77:
         window_pos = 0
         while (window_pos + L) <= len(coded_string):
             print(coded_string[window_pos : window_pos+L])
+            print(decodeWord(coded_string[window_pos : window_pos+L], self.alphabet, self.n, self.l))
             window_pos += L
 
 decodifier = DecoderLZ77(n=10, l=5, alphabet=['A', 'T', 'G', 'U'])
-#print(decodifier.static_dict)
 decodifier.decodify('AAAATGATAAAATGAGAUTATGATAUTATGATATAGTGAGTAAUTGATAUTATGAGTAAGTGAT', symb='_')

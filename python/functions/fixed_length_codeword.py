@@ -35,3 +35,18 @@ def code_word(pos, size, char, n, l, alphabet):
     cd += dec2alpha(alphabet, size).rjust(int(math.ceil(math.log(l) / math.log(len(alphabet)))), alphabet[0])
     cd += char
     return cd
+
+
+
+def alpha2dec(alphabet, anum):
+    radix = len(alphabet)
+    dec = 0
+    for i in range(0,len(anum)):
+        dec += alphabet.index(anum[len(anum)-i-1])*(radix**i)
+    return dec
+
+def decodeWord(word, alphabet, n, l):
+    pos = alpha2dec(alphabet, word[0:int(np.ceil(np.log(n-l) / np.log(len(alphabet))))])
+    size = alpha2dec(alphabet, word[int(np.ceil(np.log(n-l) / np.log(len(alphabet)))):int(np.ceil(np.log(n-l) / np.log(len(alphabet))))+int(np.ceil(np.log(l) / np.log(len(alphabet))))])
+    #char = word[int(np.ceil(np.log(n-l) / np.log(len(alphabet))))+int(np.ceil(np.log(l) / np.log(len(alphabet)))):]
+    return pos, size#, char

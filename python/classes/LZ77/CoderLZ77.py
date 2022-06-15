@@ -39,15 +39,14 @@ class CoderLZ77:
     def codify(self, string: str, symb: str):
         reproducible_extensions: List[Tuple] = sliding_window_reproducible_extension(string, symb, self.n, self.l)
         codified_string = ''
+        print(reproducible_extensions)
         for reproducible_extension in reproducible_extensions:
             pos, size, char = reproducible_extension
             codified_word = code_word(pos, size, char, self.n, self.l, self.alphabet)
-            #print(codified_word)
             codified_word = codified_word[: -1] + self.static_dict[ord(codified_word[-1])]
-            #print(codified_word)
+
             codified_string += codified_word
         return codified_string
 
 codifier = CoderLZ77(n=10, l=5, alphabet=['A', 'T', 'G', 'U'])
-print(codifier.static_dict)
 print(codifier.codify('abababababaaabbbbbabababbba', symb='_'))
