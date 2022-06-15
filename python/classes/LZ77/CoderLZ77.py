@@ -42,8 +42,9 @@ class CoderLZ77:
         for reproducible_extension in reproducible_extensions:
             pos, size, char = reproducible_extension
             codified_word = code_word(pos, size, char, self.n, self.l, self.alphabet)
+            #print(codified_word)
             codified_word = codified_word[: -1] + self.static_dict[ord(codified_word[-1])]
-            print(codified_word)
+            #print(codified_word)
             codified_string += codified_word
         return codified_string
 
