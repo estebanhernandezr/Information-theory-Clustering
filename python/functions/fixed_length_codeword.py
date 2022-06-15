@@ -1,3 +1,4 @@
+import math
 import numpy as np
 
 def d2r(radix, decnum, current):
@@ -30,7 +31,7 @@ def radix2dec(radix, rnum):
     return dec
 
 def code_word(pos, size, char, n, l, alphabet):
-    cd = dec2alpha(alphabet, pos).rjust(int(np.ceil(np.log(n-l) / np.log(len(alphabet)))), alphabet[0])
-    cd += dec2alpha(alphabet, size).rjust(int(np.ceil(np.log(l) / np.log(len(alphabet)))), alphabet[0])
-    cd += str(dec2alpha(alphabet, ord(char)))
+    cd = dec2alpha(alphabet, pos).rjust(int(math.ceil(math.log(n-l) / math.log(len(alphabet)))), alphabet[0])
+    cd += dec2alpha(alphabet, size).rjust(int(math.ceil(math.log(l) / math.log(len(alphabet)))), alphabet[0])
+    cd += char
     return cd
