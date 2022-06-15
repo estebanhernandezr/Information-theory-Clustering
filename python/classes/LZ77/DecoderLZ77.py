@@ -3,8 +3,9 @@ sys.path.insert(0, 'python/functions')
 
 import math
 from typing import List, Tuple
-from fixed_length_codeword import dec2alpha, decodeWord
+from fixed_length_codeword import decode_word
 from auxiliar_functions import generate_combinations_wrapper
+from reproduction_of_extension import reproduce_extension
 
 """
     Function: LZ77 decodifier class.
@@ -36,12 +37,19 @@ class DecoderLZ77:
         self.static_dict: List = generate_combinations_wrapper(self.alphabet, length)
 
     def decodify(self, coded_string: str, symb: str):
+        string = (self.n-self.l)*symb
+
         L = math.ceil(math.log(self.n-self.l, len(self.alphabet))) + math.ceil(math.log(self.l, len(self.alphabet))) + len(self.static_dict[0])
         window_pos = 0
+        i = self.n - self.l
         while (window_pos + L) <= len(coded_string):
-            print(coded_string[window_pos : window_pos+L])
-            print(decodeWord(coded_string[window_pos : window_pos+L], self.alphabet, self.n, self.l))
+            pos, size, char = decode_word(coded_string[window_pos : window_pos+L], self.alphabet, self.n, self.l)
+            char = chr(self.static_dict.index(char))
+
+            string += reproduce_extension(string[i-(self.n - self.l) : i], pos, size, char)
             window_pos += L
+            i += size+1
+        return string
 
 decodifier = DecoderLZ77(n=10, l=5, alphabet=['A', 'T', 'G', 'U'])
-decodifier.decodify('AAAATGATAAAATGAGAUTATGATAUTATGATATAGTGAGTAAUTGATAUTATGAGTAAGTGAT', symb='_')
+print(decodifier.decodify('AAAATGATAAAATGAGAUTATGATAUTATGATATAGTGAGTAAUTGATAUTATGAGTAAGTGAT', symb='_'))
