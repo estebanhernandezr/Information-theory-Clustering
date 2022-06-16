@@ -41,12 +41,12 @@ class DecoderLZ77:
 
         L = math.ceil(math.log(self.n-self.l, len(self.alphabet))) + math.ceil(math.log(self.l, len(self.alphabet))) + len(self.static_dict[0])
         window_pos = 0
-        i = self.n - self.l - 1
+        i = self.n - self.l
         while (window_pos + L) <= len(coded_string):
             pos, size, char = decode_word(coded_string[window_pos : window_pos+L], self.alphabet, self.n, self.l)
             char = chr(self.static_dict.index(char))
 
-            string += reproduce_extension(string[i-(self.n - self.l - 1) : i], pos, size, char)
+            string += reproduce_extension(string[i-(self.n - self.l) : i], pos, size, char)
             window_pos += L
             i += size+1
         return string

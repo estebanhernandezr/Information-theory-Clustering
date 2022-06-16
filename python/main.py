@@ -6,14 +6,13 @@ from CoderLZ77 import CoderLZ77
 from DecoderLZ77 import DecoderLZ77
 from Phylogenetic_tree_constructor import Phylogenetic_tree
 
-print("------------------------------------> DEBUGGING!!! --------------------------------")
 
 alfabeto = ['A', 'T', 'G', 'U']
-search = 50
-ahead = 20
+search = 2000
+ahead = 1000
 codificador = CoderLZ77(search, ahead, alfabeto)
 
-mensaje = 'Information Theory. Claude Shann'
+mensaje = 'Information Theory. Claude Shannon'
 mensaje_codificado = codificador.codify(string=mensaje, symb='_')
 print(mensaje_codificado)
 
@@ -22,7 +21,5 @@ mensaje_decodificado = decodifier.decodify(coded_string=mensaje_codificado, symb
 print(mensaje_decodificado)
 print('DONE')
 
-"""
 filogenetic = Phylogenetic_tree()
 filogenetic.build(codificador)
-"""
