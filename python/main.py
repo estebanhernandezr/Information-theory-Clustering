@@ -8,11 +8,11 @@ from Phylogenetic_tree_constructor import Phylogenetic_tree
 
 
 alfabeto = ['A', 'T', 'G', 'U']
-search = 2000
-ahead = 1000
+search = 10
+ahead = 4
 codificador = CoderLZ77(search, ahead, alfabeto)
 
-mensaje = 'Information Theory. Claude Shannon'
+mensaje = 'esteban hernandez'
 mensaje_codificado = codificador.codify(string=mensaje, symb='_')
 print(mensaje_codificado)
 
@@ -21,5 +21,7 @@ mensaje_decodificado = decodifier.decodify(coded_string=mensaje_codificado, symb
 print(mensaje_decodificado)
 print('DONE')
 
+"""
 filogenetic = Phylogenetic_tree()
 filogenetic.build(codificador)
+"""
