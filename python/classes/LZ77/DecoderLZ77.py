@@ -45,7 +45,7 @@ class DecoderLZ77:
         while (window_pos + L) <= len(coded_string):
             pos, size, char = decode_word(coded_string[window_pos : window_pos+L], self.alphabet, self.n, self.l)
             char = chr(self.static_dict.index(char))
-
+            print((pos, size, char))
             string += reproduce_extension(string[i-(self.n - self.l) : i], pos, size, char)
             window_pos += L
             i += size+1
