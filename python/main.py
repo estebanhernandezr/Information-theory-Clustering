@@ -1,13 +1,38 @@
 import sys
 sys.path.insert(1, 'python/classes/LZ77')
 sys.path.insert(2, 'python/classes/Phylo')
+from typing import List, Tuple
 
 from CoderLZ77 import CoderLZ77
+from DecoderLZ77 import DecoderLZ77
 from Phylogenetic_tree_constructor import Phylogenetic_tree
 
-search = 2000
-ahead = 1000
-codificador = CoderLZ77(search, ahead, alphabet=['0', '1'])
 
+alfabeto: List = ['A', 'T', 'G', 'U']
+window: int = 10
+ahead: int = 4
+mensaje: str = 'esteban hernandez ggghhhbabababa'
+
+"""
+    CODIFICACIÓN
+"""
+codificador = CoderLZ77(window, ahead, alfabeto)
+mensaje_codificado: str = codificador.codify(string=mensaje, symb='_')
+print(mensaje_codificado)
+
+"""
+    DECODIFICACIÓN
+"""
+
+decodifier = DecoderLZ77(window, ahead, alfabeto)
+mensaje_decodificado: str = decodifier.decodify(coded_string=mensaje_codificado, symb='_')
+print(mensaje_decodificado)
+print('DONE')
+
+"""
+    ÁRBOL FILOGENÉTICO
+"""
+"""
 filogenetic = Phylogenetic_tree()
 filogenetic.build(codificador)
+"""
