@@ -9,8 +9,8 @@ from Phylogenetic_tree_constructor import Phylogenetic_tree
 
 
 alfabeto: List = ['A', 'T', 'G', 'U']
-window: int = 10
-ahead: int = 4
+window: int = 2000
+ahead: int = 1000
 mensaje: str = 'esteban hernandez ggghhhbabababa'
 
 """
@@ -23,16 +23,12 @@ print(mensaje_codificado)
 """
     DECODIFICACIÓN
 """
-
 decodifier = DecoderLZ77(window, ahead, alfabeto)
 mensaje_decodificado: str = decodifier.decodify(coded_string=mensaje_codificado, symb='_')
 print(mensaje_decodificado)
-print('DONE')
 
 """
     ÁRBOL FILOGENÉTICO
 """
-"""
 filogenetic = Phylogenetic_tree()
 filogenetic.build(codificador)
-"""

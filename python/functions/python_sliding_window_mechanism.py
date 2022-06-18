@@ -24,12 +24,8 @@ def sliding_window_reproducible_extension(string: str, symb: str, n: int, l: int
     totcode: List = []
     pcad: str = ini_search_buffer(symb, n-l, string)
     wpos: int = 0
-    print("pcad: ", pcad)
     while wpos < len(pcad)-(n-l):
-        print('search: ', pcad[wpos:wpos+n])
-        print('lookahead: ', pcad[wpos+(n-l):wpos+n])
         pos, size, char = reproducible_extension(pcad[wpos:wpos+n], pcad[wpos+(n-l):wpos+n], n, l)
-        print((pos, size, char))
         if pos >= 0:
             totcode.append((pos, size, char))
         else:
