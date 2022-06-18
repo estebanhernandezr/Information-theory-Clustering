@@ -30,5 +30,8 @@ print(mensaje_decodificado)
 """
     ÁRBOL FILOGENÉTICO
 """
+"""
 filogenetic = Phylogenetic_tree()
 filogenetic.build(codificador)
+"""
+
