@@ -2,6 +2,7 @@
     "python.analysis.extraPaths": [
         "./python/functions",
         "./python/classes/LZ77",
-        "./python/classes/Phylo"
+        "./python/classes/Phylo",
+        "./python/classes/Clusterer"
     ]
 }

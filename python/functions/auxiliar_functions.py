@@ -26,6 +26,19 @@ def lower_triangular(matrix):
         new_filas.append(new_fila)
     return new_filas
 
+def lower_triangular_general(matrix):
+    new_filas = []
+    for i in range(0, len(matrix)):
+        new_fila = []
+        for j in range(0, len(matrix[i])):
+            if j == i:
+                new_fila.append(matrix[i][j])
+                break
+            else:
+                new_fila.append(matrix[i][j])
+        new_filas.append(new_fila)
+    return new_filas
+
 """
     Function: Generate all combinations of symbols of the alphabet of given length.
     Authors: Esteban Hernández Ramírez & Carlos Eduardo Álvarez Cabrera.
