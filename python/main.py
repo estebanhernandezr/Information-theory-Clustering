@@ -20,7 +20,7 @@ from Phylogenetic_tree_constructor import Phylogenetic_tree
 alfabeto: List = ['A', 'T', 'G', 'U']
 window: int = 20
 ahead: int = 8
-mensaje: str = 'esteban hernandez ramirez aaaaaaa'
+mensaje: str = 'Debugging SuffixTree CoderLZ77 class: bug found at end of string coding!!'
 
 """
     CODIFICACIÓN
