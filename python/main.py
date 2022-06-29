@@ -7,8 +7,9 @@ sys.path.insert(3, 'python/classes/Clusterer')
 from typing import List, Tuple
 import matplotlib.pyplot as plt
 import numpy as np
+import string
 
-from patterns_generation import generate_random_seed, repeated_seed_pattern
+from patterns_generation import generate_random_seed, generate_palindrome_seed, repeated_seed_pattern
 
 from CoderLZ77 import CoderLZ77
 from NCD_Clusterer import Clusterer
@@ -18,37 +19,37 @@ from Phylogenetic_tree_constructor import Phylogenetic_tree
 
 
 alfabeto: List = ['A', 'T', 'G', 'U']
-window: int = 20
-ahead: int = 8
-mensaje: str = 'Debugging SuffixTree CoderLZ77 class: bug found at end of string coding!!'
+window: int = 5000
+ahead: int = 2000
+#mensaje: str = 'Samuel Langhorne Clemens (Florida, Misuri; 30 de noviembre de 1835-Redding)'
 
 """
     CODIFICACIÓN
 """
-codificador_iterativo = CoderLZ77(window, ahead, alfabeto)
-mensaje_codificado_iter: str = codificador_iterativo.codify(string=mensaje, symb='_')
-print(mensaje_codificado_iter)
+#codificador_iterativo = CoderLZ77(window, ahead, alfabeto)
+#mensaje_codificado_iter: str = codificador_iterativo.codify(string=mensaje, symb='_')
+#print(mensaje_codificado_iter)
 
 codificador_arbol = SuffixTree_CoderLZ77(window, ahead, alphabet=['A', 'T', 'G', 'U'])
-mensaje_codificado_arbol: str = codificador_arbol.codify(string=mensaje, symb='_')
-print(mensaje_codificado_arbol)
+#mensaje_codificado_arbol: str = codificador_arbol.codify(string=mensaje, symb='_')
+#print(mensaje_codificado_arbol)
 
-print(mensaje_codificado_iter[: -10] == mensaje_codificado_arbol[: -10])
+#print(mensaje_codificado_iter[: -10] == mensaje_codificado_arbol[: -10])
 
 """
     DECODIFICACIÓN
 """
-decodifier = DecoderLZ77(window, ahead, alfabeto)
-mensaje_decodificado: str = decodifier.decodify(coded_string=mensaje_codificado_arbol, symb='_')
-print(mensaje_decodificado)
+#decodifier = DecoderLZ77(window, ahead, alfabeto)
+#mensaje_decodificado: str = decodifier.decodify(coded_string=mensaje_codificado_arbol, symb='_')
+#print(mensaje_decodificado)
 
 
 """
     ÁRBOL FILOGENÉTICO
 """
 #codificador_filogenetico = CoderLZ77(2000, 1000, ['0', '1'])
-#filogenetic = Phylogenetic_tree()
-#filogenetic.build(codificador)
+filogenetic = Phylogenetic_tree()
+filogenetic.build(codificador_arbol)
 
 
 """
@@ -62,16 +63,18 @@ print(mensaje_decodificado)
 """
     TAMAÑO DE VENTANA VS TAMAÑO DEL PATRON
 """
+
 #def run(lookahead):
-#    n: int = 100
-#    m: int = 50
+#    n: int = 30
+#    m: int = 30
 #    window_s = []
 #    pattern_s = []
 #    compression = []
 #    for window_size in range(5, n):
+#        print("------------> " + str(window_size) + " <---------------")
 #        for pattern_size in range(1, m):
 #            codificador = CoderLZ77(window_size, int(np.ceil(window_size*lookahead)), ['0', '1'])
-#            semilla: str = generate_random_seed(pattern_size, ['0', '1'])
+#            semilla: str = generate_palindrome_seed(pattern_size, string.ascii_lowercase)
 #            patron: str = repeated_seed_pattern(semilla, 100)
 #            mensaje_codificado: str = codificador.codify(string=patron, symb='_')
 #            window_s.append(window_size)
@@ -79,10 +82,10 @@ print(mensaje_decodificado)
 #
 #            compression.append(len(patron)/len(mensaje_codificado))
 #    return window_s, pattern_s, compression
-#
-#lookahead_portion = 0.30
+
+#lookahead_portion = 0.15
 #x, y, z = run(lookahead_portion)
-#
+
 #fig = plt.figure()
 #ax = plt.axes(projection='3d')
 #ax.scatter3D(x, y, z, c=z, cmap='Reds')
