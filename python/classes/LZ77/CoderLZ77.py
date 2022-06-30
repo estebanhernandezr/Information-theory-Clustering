@@ -38,7 +38,6 @@ class CoderLZ77:
 
     def codify(self, string: str, symb: str):
         reproducible_extensions: List[Tuple] = sliding_window_reproducible_extension(string, symb, self.n, self.l)
-        print(reproducible_extensions)
         codified_string = ''
         for reproducible_extension in reproducible_extensions:
             pos, size, char = reproducible_extension

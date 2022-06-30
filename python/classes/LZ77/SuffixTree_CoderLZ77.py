@@ -25,9 +25,9 @@ from suffix_tree_reproducible_extension import reproducible_extension
                  Compress any given string given the codifier parameters.
 
     Demo (usage): 
-            > codifier = CoderLZ77(n=10, l=5, alphabet=['A', 'T', 'G', 'U'])
-            > codifier.codify('abababababaaabbbbbabababbba', symb='_')
-            > AAAATGATAAAATGAGAUTATGATAUTATGATATAGTGAGTAAUTGATAUTATGAGTAAGTGAT
+            > codifier = SuffixTree_CoderLZ77(n=10, l=4, alphabet=['A', 'T', 'G', 'U'])
+            > print(codifier.codify('abababababaaabbbbbabababbba', symb='_'))
+            > AAATGATAAATGAGTATATGATTATATGATAGGTGAGTAUTGATTATATGAGTTGTGAT
 """
 
 class SuffixTree_CoderLZ77:

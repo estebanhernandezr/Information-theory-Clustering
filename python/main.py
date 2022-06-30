@@ -17,47 +17,54 @@ from DecoderLZ77 import DecoderLZ77
 from Phylogenetic_tree_constructor import Phylogenetic_tree
 
 
-alfabeto: List = ['A', 'T', 'G', 'U']
-window: int = 20
-ahead: int = 8
-mensaje: str = 'esteban hernandez ramirez aaaaaaa'
+#alfabeto: List = ['A', 'T', 'G', 'U']
+#window: int = 20
+#ahead: int = 8
+#mensaje: str = 'esteban hernandez ramirez aaaaaaa'
 
 """
     CODIFICACIÓN
 """
-codificador_iterativo = CoderLZ77(window, ahead, alfabeto)
-mensaje_codificado_iter: str = codificador_iterativo.codify(string=mensaje, symb='_')
-print(mensaje_codificado_iter)
+#codificador_iterativo = CoderLZ77(window, ahead, alfabeto)
+#mensaje_codificado_iter: str = codificador_iterativo.codify(string=mensaje, symb='_')
+#print(mensaje_codificado_iter)
 
-codificador_arbol = SuffixTree_CoderLZ77(window, ahead, alphabet=['A', 'T', 'G', 'U'])
-mensaje_codificado_arbol: str = codificador_arbol.codify(string=mensaje, symb='_')
-print(mensaje_codificado_arbol)
+#codificador_arbol = SuffixTree_CoderLZ77(window, ahead, alphabet=['A', 'T', 'G', 'U'])
+#mensaje_codificado_arbol: str = codificador_arbol.codify(string=mensaje, symb='_')
+#print(mensaje_codificado_arbol)
 
-print(mensaje_codificado_iter[: -10] == mensaje_codificado_arbol[: -10])
+#print(mensaje_codificado_iter[: -10] == mensaje_codificado_arbol[: -10])
 
 """
     DECODIFICACIÓN
 """
-decodifier = DecoderLZ77(window, ahead, alfabeto)
-mensaje_decodificado: str = decodifier.decodify(coded_string=mensaje_codificado_arbol, symb='_')
-print(mensaje_decodificado)
+#decodifier = DecoderLZ77(window, ahead, alfabeto)
+#mensaje_decodificado: str = decodifier.decodify(coded_string=mensaje_codificado_arbol, symb='_')
+#print(mensaje_decodificado)
 
 
 """
     ÁRBOL FILOGENÉTICO
 """
-#codificador_filogenetico = CoderLZ77(2000, 1000, ['0', '1'])
+#codificador_filogenetico = CoderLZ77(5000, 2000, ['0', '1'])
 #filogenetic = Phylogenetic_tree()
-#filogenetic.build(codificador)
+#filogenetic.build(codificador_filogenetico)
 
 
 """
     Normalized Compression Distance Clustering
 """
-#codificador_agrupador = CoderLZ77(5000, 2000, ['0', '1'])
+#sys.setrecursionlimit(1000)
+#print(sys.getrecursionlimit())
+#codificador_agrupador = SuffixTree_CoderLZ77(1000, 400, ['0', '1'])
 #agrupador = Clusterer()
 #agrupador.build(codificador_agrupador)
 #print(agrupador.distance_matrix)
+
+codificador_agrupador = CoderLZ77(5000, 2000, ['0', '1'])
+agrupador = Clusterer()
+agrupador.build(codificador_agrupador)
+print(agrupador.distance_matrix)
 
 """
     TAMAÑO DE VENTANA VS TAMAÑO DEL PATRON
