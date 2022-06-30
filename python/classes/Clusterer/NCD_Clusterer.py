@@ -6,6 +6,7 @@ import slate3k as slate
 
 from normalized_compression_distance import normalized_compression_distance
 from auxiliar_functions import lower_triangular_general
+from dendogram_visualization import visualize_dendogram
 from phylogenetic_tree_visualization import visualize_phylogenetic_tree
 
 class Clusterer:
@@ -33,7 +34,8 @@ class Clusterer:
 
         distM = [dictionary[key] for key in dictionary.keys()]
         names = [str(key)[:-4] for key in dictionary.keys()]
+        visualize_dendogram(names, distM)
         distM = lower_triangular_general(distM)
         print(distM)
-        visualize_phylogenetic_tree(names, distM)
+        #visualize_phylogenetic_tree(names, distM)
         self.distance_matrix = distM

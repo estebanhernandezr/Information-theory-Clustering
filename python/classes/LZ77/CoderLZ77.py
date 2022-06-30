@@ -26,7 +26,7 @@ from python_sliding_window_mechanism import sliding_window_reproducible_extensio
 
 class CoderLZ77:
 
-    __symbols_to_encode = 256 # ASCII / UNICODE / needed to construct static dictionary of symbols
+    __symbols_to_encode = (2**16)-1 # ASCII / UNICODE / needed to construct static dictionary of symbols
 
     def __init__(self, n: int, l: int, alphabet: List):
         self.n: int = n

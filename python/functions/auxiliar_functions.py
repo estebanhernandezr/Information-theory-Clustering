@@ -66,3 +66,28 @@ def generate_combinations(alphabet, length, combination):
 def generate_combinations_wrapper(alphabet, length):
     combinations: List = generate_combinations(alphabet, length, '')
     return combinations
+
+"""
+    Function: Traverse the Suffix tree in post order.
+    Authors: Esteban Hernández Ramírez & Carlos Eduardo Álvarez Cabrera.
+    Date: 20/06/2022
+
+    Reference:
+
+    Description: Given a tree, traverse it in post order.
+
+    Demo (usage):
+"""
+
+def postorder_scan_set(self):
+    if self.is_leaf():
+        self.new_idx = self.idx
+        return self.idx
+
+    else:
+        idxs = []
+        for node in self.transition_links.values():
+            idxs.append(postorder_scan_set(node))
+
+        self.new_idx = max(idxs)
+        return self.new_idx

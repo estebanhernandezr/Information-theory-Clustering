@@ -26,7 +26,7 @@ from reproduction_of_extension import reproduce_extension
 
 class DecoderLZ77:
 
-    __symbols_to_encode = 256 # ASCII / UNICODE / needed to construct static dictionary of symbols
+    __symbols_to_encode = (2**16)-1 # ASCII / UNICODE / needed to construct static dictionary of symbols
 
     def __init__(self, n, l, alphabet):
         self.n: int = n
