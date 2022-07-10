@@ -3,6 +3,10 @@
         "./python/functions",
         "./python/classes/LZ77",
         "./python/classes/Phylo",
-        "./python/classes/Clusterer"
+        "./python/classes/Clusterer",
+        "./python/codifiers/codifier_lempel_ziv_1977/encoder",
+        "./python/codifiers/codifier_lempel_ziv_1977/decoder",
+        "./python/builders/builder_normalized_compression_distance",
+        "./python/builders/builder_relative_entropy"
     ]
 }
