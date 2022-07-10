@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 def visualize_dendogram(names, distM):
     dists = distM
     #dists = squareform(distM)
-    linkage_matrix = linkage(dists, "single")
+    linkage_matrix = linkage(dists, 'complete', optimal_ordering=True)
     dendrogram(linkage_matrix, labels=names, orientation='top', leaf_rotation=90, color_threshold=None)
     plt.title("dendogram")
     plt.tight_layout()

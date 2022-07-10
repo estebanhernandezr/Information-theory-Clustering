@@ -46,7 +46,7 @@ from Phylogenetic_tree_constructor import Phylogenetic_tree
 """
     ÁRBOL FILOGENÉTICO
 """
-#codificador_filogenetico = CoderLZ77(5000, 2000, ['0', '1'])
+#codificador_filogenetico = CoderLZ77(300, 150, ['0', '1'])
 #filogenetic = Phylogenetic_tree()
 #filogenetic.build(codificador_filogenetico)
 
@@ -61,7 +61,8 @@ from Phylogenetic_tree_constructor import Phylogenetic_tree
 #agrupador.build(codificador_agrupador)
 #print(agrupador.distance_matrix)
 
-codificador_agrupador = CoderLZ77(5000, 2000, ['0', '1'])
+print("Hello world, from 'reestructuracion' branch")
+codificador_agrupador = CoderLZ77(300, 150, ['0', '1'])
 agrupador = Clusterer()
 agrupador.build(codificador_agrupador)
 print(agrupador.distance_matrix)
