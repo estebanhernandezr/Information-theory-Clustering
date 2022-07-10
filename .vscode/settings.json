@@ -7,6 +7,9 @@
         "./python/codifiers/codifier_lempel_ziv_1977/encoder",
         "./python/codifiers/codifier_lempel_ziv_1977/decoder",
         "./python/builders/builder_normalized_compression_distance",
-        "./python/builders/builder_relative_entropy"
+        "./python/builders/builder_relative_entropy",
+        "./python/clusterers/clusterer_hierarchical",
+        "./python/clusterers/clusterer_dimensional",
+        "./python/clusterers/clusterer_dimensional/functions"
     ]
 }

@@ -4,12 +4,10 @@ sys.path.insert(1, 'python/codifiers/codifier_lempel_ziv_1977/encoder')
 sys.path.insert(2, 'python/codifiers/codifier_lempel_ziv_1977/decoder')
 sys.path.insert(3, 'python/builders/builder_normalized_compression_distance')
 sys.path.insert(4, 'python/builders/builder_relative_entropy')
+sys.path.insert(5, 'python/clusterers/clusterer_hierarchical')
+sys.path.insert(5, 'python/clusterers/clusterer_dimensional')
 
 from typing import List, Tuple
-import matplotlib.pyplot as plt
-import numpy as np
-
-from patterns_generation import generate_random_seed, repeated_seed_pattern
 
 from Encoder_LZ77 import Encoder as EncoderLZ77
 from Decoder_LZ77 import Decoder as DecoderLZ77
@@ -17,78 +15,56 @@ from Decoder_LZ77 import Decoder as DecoderLZ77
 from Builder_NCD import Builder as BuilderNCD
 from Builder_RET import Builder as BuilderRET
 
+from Clusterer_hierarchy import Clusterer as ClustererHierarchy
+from Clusterer_dimension import Clusterer as ClustererDimension
 
 alfabeto: List = ['A', 'T', 'G', 'U']
-window: int = 20
-ahead: int = 8
+window: int = 500
+ahead: int = 200
 mensaje: str = 'esteban hernandez ramirez aaaaaaa'
 
 """
-    CODIFICACIÓN
+    ENCODE
 """
 codificador_iterativo = EncoderLZ77(window, ahead, alfabeto)
 mensaje_codificado_iter: str = codificador_iterativo.codify(string=mensaje, symb='_')
 print(mensaje_codificado_iter)
 
+
 """
-    DECODIFICACIÓN
+    DECODE
 """
 decodifier = DecoderLZ77(window, ahead, alfabeto)
 mensaje_decodificado: str = decodifier.decodify(coded_string=mensaje_codificado_iter, symb='_')
 print(mensaje_decodificado)
 
+
 """
-    ÁRBOL FILOGENÉTICO
+    BUILD relative entropy MATRIX
 """
-#codificador_filogenetico = CoderLZ77(300, 150, ['0', '1'])
-#filogenetic = Phylogenetic_tree()
-#filogenetic.build(codificador_filogenetico)
+#relative_entropies = BuilderRET()
+#relative_entropies.build(compresser=codificador_iterativo, path='python\data\PDFs\\')
+#print(relative_entropies.distance_matrix)
 
 
 """
-    Normalized Compression Distance Clustering
+    BUILD normalized compression distance MATRIX
 """
-#sys.setrecursionlimit(1000)
-#print(sys.getrecursionlimit())
-#codificador_agrupador = SuffixTree_CoderLZ77(1000, 400, ['0', '1'])
-#agrupador = Clusterer()
-#agrupador.build(codificador_agrupador)
-#print(agrupador.distance_matrix)
+builderNCD = BuilderNCD()
+builderNCD.build(compresser=codificador_iterativo, path='python\data\PDFs\\')
+normalized_compression_distances = builderNCD.distance_matrix
+print(normalized_compression_distances)
 
-#print("Hello world, from 'reestructuracion' branch")
-#codificador_agrupador = EncoderLZ77(300, 150, ['0', '1'])
-#agrupador = BuilderNCD()
-#agrupador.build(codificador_agrupador)
-#print(agrupador.distance_matrix)
 
 """
-    TAMAÑO DE VENTANA VS TAMAÑO DEL PATRON
+    CLUSTER HIERARCHY distance matrix
 """
-#def run(lookahead):
-#    n: int = 100
-#    m: int = 50
-#    window_s = []
-#    pattern_s = []
-#    compression = []
-#    for window_size in range(5, n):
-#        for pattern_size in range(1, m):
-#            codificador = CoderLZ77(window_size, int(np.ceil(window_size*lookahead)), ['0', '1'])
-#            semilla: str = generate_random_seed(pattern_size, ['0', '1'])
-#            patron: str = repeated_seed_pattern(semilla, 100)
-#            mensaje_codificado: str = codificador.codify(string=patron, symb='_')
-#            window_s.append(window_size)
-#            pattern_s.append(pattern_size)
-#
-#            compression.append(len(patron)/len(mensaje_codificado))
-#    return window_s, pattern_s, compression
-#
-#lookahead_portion = 0.30
-#x, y, z = run(lookahead_portion)
-#
-#fig = plt.figure()
-#ax = plt.axes(projection='3d')
-#ax.scatter3D(x, y, z, c=z, cmap='Reds')
-#plt.xlabel("window size")
-#plt.ylabel("pattern size")
-#plt.title("lookahead portion: " + str(lookahead_portion))
-#plt.show()
+clusterer_hierarchy = ClustererHierarchy()
+clusterer_hierarchy.clust(builderNCD.labels, normalized_compression_distances)
+
+
+"""
+    CLUSTER FLAT DIMENSION distance matrix
+"""
+clusterer_dimension = ClustererDimension()
+clusterer_dimension.clust(builderNCD.labels, normalized_compression_distances)

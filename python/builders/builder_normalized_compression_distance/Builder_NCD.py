@@ -30,6 +30,7 @@ from auxiliar_functions import lower_triangular_general
 
 class Builder:
     def __init__(self):
+        self.labels = None
         self.distance_matrix = None
 
     def build(self, compresser, path = 'python\data\PDFs\\'):
@@ -53,6 +54,6 @@ class Builder:
 
         distM = [dictionary[key] for key in dictionary.keys()]
         names = [str(key)[:-4] for key in dictionary.keys()]
-        distM = lower_triangular_general(distM)
-        print(distM)
+        #distM = lower_triangular_general(distM)
+        self.labels = names
         self.distance_matrix = distM
