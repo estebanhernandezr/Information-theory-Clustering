@@ -3,6 +3,12 @@ import numpy as np
 import math
 import sympy
 import numpy as np
+from sklearn.manifold import MDS
+from matplotlib import pyplot as plt
+import sklearn.datasets as dt
+import numpy as np
+from sklearn.metrics.pairwise import manhattan_distances, euclidean_distances
+from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 
 def give_coords(distances):
     """give coordinates of points for which distances given
@@ -62,5 +68,18 @@ def give_coords(distances):
     return X
 
 def visualize_flat_clustering(labels, D):
-    P = give_coords(D)
-    print(P)
+    X = give_coords(D)
+    mds = MDS(dissimilarity='precomputed', random_state=0)
+    X_transform = mds.fit_transform(X)
+    stress = mds.stress_
+    print(X_transform)
+    print(stress)
+    x, y = X_transform.T
+
+    fig, ax = plt.subplots()
+    ax.scatter(x,y)
+
+    for i, txt in enumerate(labels):
+        ax.annotate(txt, (x[i], y[i]))
+
+    plt.show()
