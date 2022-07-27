@@ -30,13 +30,11 @@ def radix2dec(radix, rnum):
         dec += int(rnum[len(rnum)-i-1])*(radix**i)
     return dec
 
-def code_word(pos, size, char, n, l, alphabet):
+def block(pos, size, char, n, l, alphabet):
     cd = dec2alpha(alphabet, pos).rjust(int(math.ceil(math.log(n-l) / math.log(len(alphabet)))), alphabet[0])
     cd += dec2alpha(alphabet, size).rjust(int(math.ceil(math.log(l) / math.log(len(alphabet)))), alphabet[0])
     cd += char
     return cd
-
-
 
 def alpha2dec(alphabet, anum):
     radix = len(alphabet)
@@ -44,9 +42,18 @@ def alpha2dec(alphabet, anum):
     for i in range(0,len(anum)):
         dec += alphabet.index(anum[len(anum)-i-1])*(radix**i)
     return dec
-
+"""
 def decode_word(word, alphabet, n, l):
     pos = alpha2dec(alphabet, word[0:int(np.ceil(np.log(n-l) / np.log(len(alphabet))))])
     size = alpha2dec(alphabet, word[int(np.ceil(np.log(n-l) / np.log(len(alphabet)))):int(np.ceil(np.log(n-l) / np.log(len(alphabet))))+int(np.ceil(np.log(l) / np.log(len(alphabet))))])
     char = word[int(np.ceil(np.log(n-l) / np.log(len(alphabet))))+int(np.ceil(np.log(l) / np.log(len(alphabet)))):]
+    return pos, size, char
+"""
+def deblock(word, alpha, n, l):
+    pblen = int(np.ceil(np.log(n-l) / np.log(len(alpha)))) #code length for positions
+    lblen = int(np.ceil(np.log(l) / np.log(len(alpha)))) #code length for lengths
+
+    pos = alpha2dec(alpha, word[0:pblen])
+    size = alpha2dec(alpha, word[pblen:pblen+lblen])
+    char = word[pblen+lblen]
     return pos, size, char

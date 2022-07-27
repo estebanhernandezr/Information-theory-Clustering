@@ -10,6 +10,7 @@
         "./python/builders/builder_relative_entropy",
         "./python/clusterers/clusterer_hierarchical",
         "./python/clusterers/clusterer_dimensional",
-        "./python/clusterers/clusterer_dimensional/functions"
+        "./python/clusterers/clusterer_dimensional/functions",
+        "./python/compressors/lempel_ziv_1977/functions"
     ]
 }

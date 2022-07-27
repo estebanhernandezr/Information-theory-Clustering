@@ -2,10 +2,7 @@ import sys
 sys.path.insert(0, 'python/compressors/lempel_ziv_1977/functions')
 sys.path.insert(1, 'python/compressors/lempel_ziv_1977/decompressor/functions')
 
-import math
-from typing import List, Tuple
-from fixed_length_codeword import decode_word
-from auxiliar_functions import generate_combinations_wrapper
+from block_description import deblock
 from reproduction_of_extension import reproduce_extension
 
 """
@@ -20,38 +17,28 @@ from reproduction_of_extension import reproduce_extension
                  in the reference.
 
     Demo (usage):
-            > decompresor = Decompressor(n=10, l=5, alphabet=['A', 'T', 'G', 'U'])
-            > mensaje_descomprimido = decompresor.decompress('AAAAAAAATGATAAAAAAAATGAGAUTAAAAATGATAUTAAAAATGATATAGAAAATGAGTAAUAAAATGATAUTAAAAATGAGTAAGAAAATGAT', symb='_')
+            > decompresor = Decompressor(10, 5, ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'])
+            > mensaje_descomprimido = decompresor.decompress(['aah', 'aao', 'aal', 'aaa', 'aa ', 'aam', 'aau', 'aan', 'aad', 'aao', 'aa ', 'cbe', 'aas', 'cc ', 'aal', 'cbm', 'aap', 'cbl', 'aa ', 'aaz', 'aai', 'aav', 'bb1', 'aa9', 'aa7', 'aa7'], symb='_')
             > print(mensaje_descomprimido)
 """
 
 class Decompressor:
 
-    __symbols_to_encode = (2**16) # ASCII / UNICODE / needed to construct static dictionary of symbols
+    def __init__(self, window_size, lookahead_size, alphabet):
+        self.n = window_size
+        self.l = lookahead_size
+        self.alpha = alphabet
 
-    def __init__(self, n, l, alphabet):
-        self.n: int = n
-        self.l: int = l
-        self.alphabet = alphabet
+    def decompress(self, compressed_string: str, symb: str):
+        decompressed_string = []
+        buffer = symb*(self.n - self.l)
+        for block in compressed_string:
+            pos, size, char = deblock(block, self.alpha, self.n, self.l)
+            decompressed_string.append(reproduce_extension(buffer, pos, size, char))
+            buffer += decompressed_string[-1]
+            buffer = buffer[size+1 :]
+        return decompressed_string
 
-        length: int = math.ceil(math.log(self.__symbols_to_encode, len(self.alphabet)))
-        self.static_dict: List = generate_combinations_wrapper(self.alphabet, length)
-
-    def decompress(self, coded_string: str, symb: str):
-        string = (self.n-self.l)*symb
-
-        L = math.ceil(math.log(self.n-self.l, len(self.alphabet))) + math.ceil(math.log(self.l, len(self.alphabet))) + len(self.static_dict[0])
-        window_pos = 0
-        i = self.n - self.l
-        while (window_pos + L) <= len(coded_string):
-            pos, size, char = decode_word(coded_string[window_pos : window_pos+L], self.alphabet, self.n, self.l)
-            char = chr(self.static_dict.index(char))
-
-            string += reproduce_extension(string[i-(self.n - self.l) : i], pos, size, char)
-            window_pos += L
-            i += size+1
-        return string
-
-decompresor = Decompressor(n=10, l=5, alphabet=['A', 'T', 'G', 'U'])
-mensaje_descomprimido = decompresor.decompress('AAAAAAAATGATAAAAAAAATGAGAUTAAAAATGATAUTAAAAATGATATAGAAAATGAGTAAUAAAATGATAUTAAAAATGAGTAAGAAAATGAT', symb='_')
+decompresor = Decompressor(10, 5, ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'])
+mensaje_descomprimido = decompresor.decompress(['aah', 'aao', 'aal', 'aaa', 'aa ', 'aam', 'aau', 'aan', 'aad', 'aao', 'aa ', 'cbe', 'aas', 'cc ', 'aal', 'cbm', 'aap', 'cbl', 'aa ', 'aaz', 'aai', 'aav', 'bb1', 'aa9', 'aa7', 'aa7'], symb='_')
 print(mensaje_descomprimido)

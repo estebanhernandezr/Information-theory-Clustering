@@ -2,10 +2,7 @@ import sys
 sys.path.insert(0, 'python/compressors/lempel_ziv_1977/functions')
 sys.path.insert(1, 'python/compressors/lempel_ziv_1977/compressor/functions')
 
-import math
-from typing import List, Tuple
-from fixed_length_codeword import code_word
-from auxiliar_functions import generate_combinations_wrapper
+from block_description import block
 from python_sliding_window_mechanism import sliding_window_reproducible_extension
 
 """
@@ -20,34 +17,27 @@ from python_sliding_window_mechanism import sliding_window_reproducible_extensio
                  in the reference.
 
     Demo (usage): 
-            > compresor = Compressor(n=10, l=5, alphabet=['A', 'T', 'G', 'U'])
-            > mensaje_comprimido = compresor.compress('abababababaaabbbbbabababbba', symb='_')
+            > compresor = Compressor(10, 5, ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'])
+            > mensaje_comprimido = compresor.compress('hola mundo desde lempel ziv 1977', symb='_')
             > print(mensaje_comprimido)
 """
 
 class Compressor:
 
-    __symbols_to_encode = (2**16) # ASCII / UNICODE / needed to construct static dictionary of symbols
+    def __init__(self, window_size, lookahead_size, alphabet):
+        self.n = window_size
+        self.l = lookahead_size
+        self.alpha = alphabet
 
-    def __init__(self, n: int, l: int, alphabet: List):
-        self.n: int = n
-        self.l: int = l
-        self.alphabet: List = alphabet
-
-        length: int = math.ceil(math.log(self.__symbols_to_encode, len(self.alphabet)))
-        self.static_dict: List = generate_combinations_wrapper(self.alphabet, length)
-
-    def compress(self, string: str, symb: str):
-        reproducible_extensions: List[Tuple] = sliding_window_reproducible_extension(string, symb, self.n, self.l)
-        codified_string = ''
+    def compress(self, string, symb):
+        compressed_string = []
+        reproducible_extensions = sliding_window_reproducible_extension(string, symb, self.n, self.l)
         for reproducible_extension in reproducible_extensions:
             pos, size, char = reproducible_extension
-            codified_word = code_word(pos, size, char, self.n, self.l, self.alphabet)
-            codified_word = codified_word[: -1] + self.static_dict[ord(codified_word[-1])]
+            compressed_word = block(pos, size, char, self.n, self.l, self.alpha)
+            compressed_string.append(compressed_word)
+        return compressed_string
 
-            codified_string += codified_word
-        return codified_string
-
-compresor = Compressor(n=10, l=5, alphabet=['A', 'T', 'G', 'U'])
-mensaje_comprimido = compresor.compress('abababababaaabbbbbabababbba', symb='_')
+compresor = Compressor(10, 5, ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'])
+mensaje_comprimido = compresor.compress('hola mundo desde lempel ziv 1977', symb='_')
 print(mensaje_comprimido)
