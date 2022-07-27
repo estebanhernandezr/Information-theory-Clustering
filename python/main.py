@@ -66,5 +66,5 @@ clusterer_hierarchy.clust(builderNCD.labels, normalized_compression_distances)
 """
     CLUSTER FLAT DIMENSION distance matrix
 """
-clusterer_dimension = ClustererDimension()
-clusterer_dimension.clust(builderNCD.labels, normalized_compression_distances)
+#clusterer_dimension = ClustererDimension()
+#clusterer_dimension.clust(builderNCD.labels, normalized_compression_distances)

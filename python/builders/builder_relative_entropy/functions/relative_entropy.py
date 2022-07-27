@@ -9,10 +9,6 @@
     Description: Calculate the relative entropy between two text in terms of their compressed version.
 
     Demo (usage):
-            > import sys
-            > sys.path.insert(1, 'python/classes/LZ77')
-            > sys.path.insert(2, 'python/classes/Phylo')
-            > from CoderLZ77 import CoderLZ77
             > codificador = CoderLZ77(5, 2, alphabet=['0', '1'])
             > relat_entropy1('aaaaaaa', 'bbbbbb', codificador)
             # [3.223, 2.356]

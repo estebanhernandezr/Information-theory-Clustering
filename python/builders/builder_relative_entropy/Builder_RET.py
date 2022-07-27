@@ -18,14 +18,6 @@ from auxiliar_functions import lower_triangular
                  of it as a phylogenetic tree.
 
     Demo (usage):
-            > import sys
-            > sys.path.insert(1, 'python/classes/LZ77')
-            > sys.path.insert(2, 'python/classes/Phylo')
-            > from CoderLZ77 import CoderLZ77
-
-            > codificador = CoderLZ77(200, 40, alphabet=['0', '1'])
-            > filogenetic = Phylogenetic_tree()
-            > filogenetic.build(codificador)
 """
 
 class Builder:

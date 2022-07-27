@@ -69,7 +69,7 @@ def give_coords(distances):
 
 def visualize_flat_clustering(labels, D):
     X = give_coords(D)
-    mds = MDS(dissimilarity='precomputed', random_state=0)
+    mds = MDS(random_state=0)
     X_transform = mds.fit_transform(X)
     stress = mds.stress_
     print(X_transform)

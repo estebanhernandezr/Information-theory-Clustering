@@ -1,5 +1,6 @@
 import sys
-sys.path.insert(0, 'python/functions')
+sys.path.insert(0, 'python/compressors/lempel_ziv_1977/functions')
+sys.path.insert(1, 'python/compressors/lempel_ziv_1977/decompressor/functions')
 
 import math
 from typing import List, Tuple
@@ -8,23 +9,23 @@ from auxiliar_functions import generate_combinations_wrapper
 from reproduction_of_extension import reproduce_extension
 
 """
-    Function: LZ77 decodifier class.
+    Function: LZ77 decompressor class.
     Authors: Esteban Hernández Ramírez & Carlos Eduardo Álvarez Cabrera.
-    Date: 13/06/2022
 
     Reference: "II. THE COMPRESSION ALGORITHM". A Universal Algorithm for Sequential Data Compression.
                 IEEE TRANSACTIONS ON INFORMATION THEORY, MAY 1977. Jacob Ziv and Abraham Lempel.
 
-    Description: Define an LZ77 decodifier as its sliding window size, lookahead buffer size, and code 
-                 alphabet. Decompress any given string given the decodifier parameters.
+    Description: Define an LZ77 decompressor given its sliding window size, lookahead buffer size, and code 
+                 alphabet. Perform decompression over any given string given the decodifier parameters, as described
+                 in the reference.
 
-    Demo (usage): 
-            > decodifier = DecoderLZ77(n=10, l=5, alphabet=['A', 'T', 'G', 'U'])
-            > decodifier.decodify('AAAATGATAAAATGAGAUTATGATAUTATGATATAGTGAGTAAUTGATAUTATGAGTAAGTGAT', symb='_')
-            > abababababaaabbbbbabababbba
+    Demo (usage):
+            > decompresor = Decompressor(n=10, l=5, alphabet=['A', 'T', 'G', 'U'])
+            > mensaje_descomprimido = decompresor.decompress('AAAAAAAATGATAAAAAAAATGAGAUTAAAAATGATAUTAAAAATGATATAGAAAATGAGTAAUAAAATGATAUTAAAAATGAGTAAGAAAATGAT', symb='_')
+            > print(mensaje_descomprimido)
 """
 
-class Decoder:
+class Decompressor:
 
     __symbols_to_encode = (2**16) # ASCII / UNICODE / needed to construct static dictionary of symbols
 
@@ -36,7 +37,7 @@ class Decoder:
         length: int = math.ceil(math.log(self.__symbols_to_encode, len(self.alphabet)))
         self.static_dict: List = generate_combinations_wrapper(self.alphabet, length)
 
-    def decodify(self, coded_string: str, symb: str):
+    def decompress(self, coded_string: str, symb: str):
         string = (self.n-self.l)*symb
 
         L = math.ceil(math.log(self.n-self.l, len(self.alphabet))) + math.ceil(math.log(self.l, len(self.alphabet))) + len(self.static_dict[0])
@@ -50,3 +51,7 @@ class Decoder:
             window_pos += L
             i += size+1
         return string
+
+decompresor = Decompressor(n=10, l=5, alphabet=['A', 'T', 'G', 'U'])
+mensaje_descomprimido = decompresor.decompress('AAAAAAAATGATAAAAAAAATGAGAUTAAAAATGATAUTAAAAATGATATAGAAAATGAGTAAUAAAATGATAUTAAAAATGAGTAAGAAAATGAT', symb='_')
+print(mensaje_descomprimido)
