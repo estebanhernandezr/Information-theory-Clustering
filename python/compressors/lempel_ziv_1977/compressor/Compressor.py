@@ -14,12 +14,16 @@ from python_sliding_window_mechanism import sliding_window_reproducible_extensio
 
     Description: Define an LZ77 compressor given its sliding window size, lookahead buffer size, and code alphabet.
                  Perform compression over any given string, for the given compression parameters, as described
-                 in the reference.
+                 in the reference. Its method 'compress' returns the list of reproducible extensions as a
+                 block of three items: reproducible extension ocurrence position, reproducible extension size and
+                 next symbol after reproducible extension; in this order respectively, codified in the same
+                 alphabet the message was written.
 
     Demo (usage): 
             > compresor = Compressor(10, 5, ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'])
             > mensaje_comprimido = compresor.compress('hola mundo desde lempel ziv 1977', symb='_')
             > print(mensaje_comprimido)
+            # ['aah', 'aao', 'aal', 'aaa', 'aa ', 'aam', 'aau', 'aan', 'aad', 'aao', 'aa ', 'cbe', 'aas', 'cc ', 'aal', 'cbm', 'aap', 'cbl', 'aa ', 'aaz', 'aai', 'aav', 'bb1', 'aa9', 'aa7', 'aa7']
 """
 
 class Compressor:
@@ -38,6 +42,6 @@ class Compressor:
             compressed_string.append(compressed_word)
         return compressed_string
 
-compresor = Compressor(10, 5, ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'])
-mensaje_comprimido = compresor.compress('hola mundo desde lempel ziv 1977', symb='_')
-print(mensaje_comprimido)
+#compresor = Compressor(10, 5, ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'])
+#mensaje_comprimido = compresor.compress('hola mundo desde lempel ziv 1977', symb='_')
+#print(mensaje_comprimido)

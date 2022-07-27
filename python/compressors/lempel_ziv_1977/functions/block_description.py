@@ -42,13 +42,7 @@ def alpha2dec(alphabet, anum):
     for i in range(0,len(anum)):
         dec += alphabet.index(anum[len(anum)-i-1])*(radix**i)
     return dec
-"""
-def decode_word(word, alphabet, n, l):
-    pos = alpha2dec(alphabet, word[0:int(np.ceil(np.log(n-l) / np.log(len(alphabet))))])
-    size = alpha2dec(alphabet, word[int(np.ceil(np.log(n-l) / np.log(len(alphabet)))):int(np.ceil(np.log(n-l) / np.log(len(alphabet))))+int(np.ceil(np.log(l) / np.log(len(alphabet))))])
-    char = word[int(np.ceil(np.log(n-l) / np.log(len(alphabet))))+int(np.ceil(np.log(l) / np.log(len(alphabet)))):]
-    return pos, size, char
-"""
+
 def deblock(word, alpha, n, l):
     pblen = int(np.ceil(np.log(n-l) / np.log(len(alpha)))) #code length for positions
     lblen = int(np.ceil(np.log(l) / np.log(len(alpha)))) #code length for lengths
