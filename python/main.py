@@ -1,43 +1,58 @@
 import sys
 sys.path.insert(0, 'python/functions')
-sys.path.insert(1, 'python/codifiers/codifier_lempel_ziv_1977/encoder')
-sys.path.insert(2, 'python/codifiers/codifier_lempel_ziv_1977/decoder')
-sys.path.insert(3, 'python/builders/builder_normalized_compression_distance')
-sys.path.insert(4, 'python/builders/builder_relative_entropy')
-sys.path.insert(5, 'python/clusterers/clusterer_hierarchical')
-sys.path.insert(5, 'python/clusterers/clusterer_dimensional')
+sys.path.insert(1, 'python/compressors/lempel_ziv_1977/compressor')
+sys.path.insert(2, 'python/compressors/lempel_ziv_1977/decompressor')
+sys.path.insert(3, 'python/transmitters/hartley/encoder')
+sys.path.insert(4, 'python/transmitters/hartley/decoder')
 
-from typing import List, Tuple
+from Compressor import Compressor
+from Decompressor import Decompressor
+from Encoder import Encoder
+from Decoder import Decoder
 
-from Encoder_LZ77 import Encoder as EncoderLZ77
-from Decoder_LZ77 import Decoder as DecoderLZ77
-
-from Builder_NCD import Builder as BuilderNCD
-from Builder_RET import Builder as BuilderRET
-
-from Clusterer_hierarchy import Clusterer as ClustererHierarchy
-from Clusterer_dimension import Clusterer as ClustererDimension
-
-alfabeto: List = ['A', 'T', 'G', 'U']
-window: int = 500
-ahead: int = 200
+alfabeto = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+window_size = 10
+ahead_size = 4
 mensaje: str = 'esteban hernandez ramirez aaaaaaa'
+
+"""
+    COMPRESS
+"""
+compresor = Compressor(10, 5, alfabeto)
+mensaje_comprimido = compresor.compress('abababababababab', symb='_')
+print(mensaje_comprimido)
+
+flujo_comprimido = ''
+for block in mensaje_comprimido:
+    flujo_comprimido += block
 
 """
     ENCODE
 """
-codificador_iterativo = EncoderLZ77(window, ahead, alfabeto)
-mensaje_codificado_iter: str = codificador_iterativo.codify(string=mensaje, symb='_')
-print(mensaje_codificado_iter)
 
+codificador = Encoder(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'], ['0', '1'])
+flujo_codificado = codificador.encode(flujo_comprimido)
 
+print(flujo_codificado)
 """
     DECODE
 """
-decodifier = DecoderLZ77(window, ahead, alfabeto)
-mensaje_decodificado: str = decodifier.decodify(coded_string=mensaje_codificado_iter, symb='_')
-print(mensaje_decodificado)
+decodificador = Decoder(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'], ['0', '1'])
+flujo_decodificado = decodificador.decode(flujo_codificado)
 
+bloques = []
+block_size = len(mensaje_comprimido[0])
+pos = 0
+while (pos + block_size) <= len(flujo_decodificado):
+    bloques.append(flujo_decodificado[pos : pos + block_size])
+    pos += block_size
+
+"""
+    DECOMPRESS
+"""
+decompresor = Decompressor(10, 5, ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'])
+mensaje_descomprimido = decompresor.decompress(bloques, symb='_')
+print(mensaje_descomprimido)
 
 """
     BUILD relative entropy MATRIX
@@ -50,17 +65,17 @@ print(mensaje_decodificado)
 """
     BUILD normalized compression distance MATRIX
 """
-builderNCD = BuilderNCD()
-builderNCD.build(compresser=codificador_iterativo, path='python\data\PDFs\\')
-normalized_compression_distances = builderNCD.distance_matrix
-print(normalized_compression_distances)
+#builderNCD = BuilderNCD()
+#builderNCD.build(compresser=codificador_iterativo, path='python\data\PDFs\\')
+#normalized_compression_distances = builderNCD.distance_matrix
+#print(normalized_compression_distances)
 
 
 """
     CLUSTER HIERARCHY distance matrix
 """
-clusterer_hierarchy = ClustererHierarchy()
-clusterer_hierarchy.clust(builderNCD.labels, normalized_compression_distances)
+#clusterer_hierarchy = ClustererHierarchy()
+#clusterer_hierarchy.clust(builderNCD.labels, normalized_compression_distances)
 
 
 """

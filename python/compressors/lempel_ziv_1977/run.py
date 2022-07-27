@@ -1,6 +1,6 @@
 import sys
 sys.path.insert(0, 'python/compressors/lempel_ziv_1977/compressor')
-sys.path.insert(0, 'python/compressors/lempel_ziv_1977/decompressor')
+sys.path.insert(1, 'python/compressors/lempel_ziv_1977/decompressor')
 
 from Compressor import Compressor
 from Decompressor import Decompressor

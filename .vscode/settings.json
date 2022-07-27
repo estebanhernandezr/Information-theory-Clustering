@@ -14,6 +14,9 @@
         "./python/compressors/lempel_ziv_1977/functions",
         "./python/compressors/lempel_ziv_1977/compressor",
         "./python/compressors/lempel_ziv_1977/decompressor",
-        "./python/transmitters/hartley/encoder/functions"
+        "./python/transmitters/hartley/encoder/functions",
+        "./python/transmitters/hartley/functions",
+        "./python/transmitters/hartley/encoder",
+        "./python/transmitters/hartley/decoder"
     ]
 }
