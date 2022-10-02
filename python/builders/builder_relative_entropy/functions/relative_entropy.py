@@ -25,7 +25,6 @@ def calculate2(Aa, Ab, Ba, Bb, A, B, dicc):
     deltaAa = calculate_delta(Aa, A, dicc)
     deltaBa = calculate_delta(Ba, B, dicc)
     deltaBb = calculate_delta(Bb, B, dicc)
-    
     return ((deltaAb - deltaBb)/deltaBb)+((deltaBa-deltaAa)/deltaAa)
 
 def relat_entropy1(txt_A, txt_B, Compresser):
@@ -39,22 +38,22 @@ def relat_entropy1(txt_A, txt_B, Compresser):
     
     dictionario = {}
 
-    coded_A = Compresser.codify(txt_A, '_')
+    coded_A = Compresser.compress(txt_A, '_')
     dictionario['A']=len(coded_A)
 
-    coded_B = Compresser.codify(txt_B, '_')
+    coded_B = Compresser.compress(txt_B, '_')
     dictionario['B']=len(coded_B)
 
-    coded_Aa = Compresser.codify(txt_Aa, '_')
+    coded_Aa = Compresser.compress(txt_Aa, '_')
     dictionario['Aa']=len(coded_Aa)
 
-    coded_Bb = Compresser.codify(txt_Bb, '_')
+    coded_Bb = Compresser.compress(txt_Bb, '_')
     dictionario['Bb']=len(coded_Bb)
 
-    coded_Ab = Compresser.codify(txt_Ab, '_')
+    coded_Ab = Compresser.compress(txt_Ab, '_')
     dictionario['Ab']=len(coded_Ab)
 
-    coded_Ba = Compresser.codify(txt_Ba, '_')
+    coded_Ba = Compresser.compress(txt_Ba, '_')
     dictionario['Ba']=len(coded_Ba)
 
     res = calculate2( 'Aa', 'Ab', 'Ba', 'Bb', 'A', 'B', dictionario)

@@ -18,9 +18,9 @@ def normalized_compression_distance(x: str, y: str, compresser) -> float:
     y: str = str(y)[: -500]
 
     # compressed files
-    C_xy: str = compresser.codify(string=(x+y), symb='_') 
-    C_x: str = compresser.codify(string=x, symb='_')
-    C_y: str = compresser.codify(string=y, symb='_')
+    C_xy: str = compresser.compress(string=(x+y), symb='_') 
+    C_x: str = compresser.compress(string=x, symb='_')
+    C_y: str = compresser.compress(string=y, symb='_')
     
     # compression distance
     E: float = len(C_xy) - min(len(C_x), len(C_y))
