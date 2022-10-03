@@ -17,6 +17,7 @@
         "./python/transmitters/hartley/encoder/functions",
         "./python/transmitters/hartley/functions",
         "./python/transmitters/hartley/encoder",
-        "./python/transmitters/hartley/decoder"
+        "./python/transmitters/hartley/decoder",
+        "./python/transmitters/huffman/functions"
     ]
 }
