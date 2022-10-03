@@ -27,25 +27,26 @@ def simulation(lim):
     return (mean_codeword_lenghts)
 
 #A = [node('WW', 0.49, "", []), node('WB', 0.21, "", []), node('BW', 0.21, "", []), node('BB', 0.09, "", [])]
-#A = [node('-', 0.05, "", []), node('C', 0.05, "", []), node('I', 0.05, "", []), node('M', 0.05, "", []), node('N', 0.05, "", []), node('P', 0.05, "", []), node('R', 0.05, "", []), node('E', 0.10, "", []), node('L', 0.10, "", []), node('O', 0.15, "", []), node('S', 0.30, "", [])]
+A = [node('-', 0.05, "", []), node('C', 0.05, "", []), node('I', 0.05, "", []), node('M', 0.05, "", []), node('N', 0.05, "", []), node('P', 0.05, "", []), node('R', 0.05, "", []), node('E', 0.10, "", []), node('L', 0.10, "", []), node('O', 0.15, "", []), node('S', 0.30, "", [])]
 #A = [node('WW', 0.25, "", []), node('WB', 0.25, "", []), node('BW', 0.25, "", []), node('BB', 0.25, "", [])]
 #A = [node('WW', 1, "", []), node('WB', 0, "", []), node('BW', 0, "", []), node('BB', 0, "", [])]
-A = [node('WWW', 0.343, "", []), node('WWB', 0.147, "", []), node('WBW', 0.147, "", []), node('BWW', 0.147, "", []), node('WBB', 0.063, "", []), node('BWB', 0.063, "", []), node('BBW', 0.063, "", []), node('BBB', 0.027, "", [])]
+#A = [node('WWW', 0.343, "", []), node('WWB', 0.147, "", []), node('WBW', 0.147, "", []), node('BWW', 0.147, "", []), node('WBB', 0.063, "", []), node('BWB', 0.063, "", []), node('BBW', 0.063, "", []), node('BBB', 0.027, "", [])]
 #A = [node('W', 0.50, "", []), node('B', 0.50, "", [])]
 
-B = [node('0', 0.5, "", []), node('1', 0.5, "", [])]
+B = [node('0', 0.5, "", []), node('1', 0.5, "", []), node('2', 0.5, "", []), node('3', 0.5, "", [])]
 
 alpha = len(A)
+print("alpha:", alpha)
 beta = len(B)
 
 codificador = Encoder(B)
 arbol = codificador.huffman_code(A)
 print_tree(arbol, 0)
 
-Sms = simulation(10)
-print(Sms)
+#Sms = simulation(10)
+#print(Sms)
 
-plt.plot([i for i in range(1, len(Sms)+1)], Sms, marker = 'x', markersize = 10)
-plt.plot([i for i in range(1, len(Sms)+1)], [i for i in range(1, len(Sms)+1)], marker = '.', markersize = 5)
-plt.ylim([0, len(Sms)+1])
-plt.show()
+#plt.plot([i for i in range(1, len(Sms)+1)], Sms, marker = 'x', markersize = 10)
+#plt.plot([i for i in range(1, len(Sms)+1)], [i for i in range(1, len(Sms)+1)], marker = '.', markersize = 5)
+#plt.ylim([0, len(Sms)+1])
+#plt.show()

@@ -6,10 +6,8 @@ from auxiliar_classes import node
 def print_tree(root, lvl):
     string = "----"*lvl+">"
     print(root.code, string, root.symbol)
-    if root.children != []:
-        for i in range(0, len(root.children)):
-            child = root.children[i]
-            print_tree(child, lvl+1)
+    for child in root.children:
+        print_tree(child, lvl+1)
 
 def sort_nodes(nodes):    
     n = len(nodes)

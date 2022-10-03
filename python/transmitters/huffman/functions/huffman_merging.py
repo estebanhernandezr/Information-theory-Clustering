@@ -10,8 +10,10 @@ def merge(P, B):
     if len(P) > 1:
         P  = sort_nodes(P)
         merge_node = node(symbol="super", probability=sum([x.probability for x in P[-beta:]]), code="", children=[])
-        for i in range(0, beta):
-            merge_node.children.append(P[-beta+i])
+        liminf = max(0, (len(P)-beta))
+        limsup = min(beta, len(P))
+        for i in range(0, limsup):
+            merge_node.children.append(P[liminf+i])
         P_ = P[: -beta] + [merge_node]
         return(merge(P_, B))
     else:
