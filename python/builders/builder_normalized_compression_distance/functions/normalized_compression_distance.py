@@ -14,8 +14,8 @@
 
 def normalized_compression_distance(x: str, y: str, compresser) -> float:
     # pre processing
-    x: str = str(x)[: -500]
-    y: str = str(y)[: -500]
+    x: str = str(x)[: min(len(x), len(y))]
+    y: str = str(y)[: min(len(x), len(y))]
 
     # compressed files
     C_xy: str = compresser.compress(string=(x+y), symb='_') 

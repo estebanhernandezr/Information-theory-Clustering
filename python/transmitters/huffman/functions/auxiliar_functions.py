@@ -31,14 +31,27 @@ def get_pairs(root):
             pairs += get_pairs(child)
         return pairs
 
-def combine(combination, conjunto, longitud):
+def combine_independence(combination, conjunto, longitud):
     if longitud == 0:
         return ([combination])
     else:
         combinaciones = []
         for i in conjunto:
             nodo = node(symbol=combination.symbol+i.symbol, probability=combination.probability*i.probability, code="", children=[])
-            combinaciones += combine(nodo, conjunto, longitud-1)
+            combinaciones += combine_independence(nodo, conjunto, longitud-1)
+        return(combinaciones)
+
+def combine_dependence(matrix, combination, conjunto, longitud):
+    if longitud == 0:
+        return ([combination])
+    else:
+        combinaciones = []
+        for i in conjunto:
+            probabilidad = combination.probability * matrix[i.symbol][combination.symbol[-1]]
+            #print("simbolo:", combination.symbol+i.symbol)
+            #print(i.symbol, "|", combination.symbol[-1], ":", matrix[i.symbol][combination.symbol[-1]])
+            nodo = node(symbol=combination.symbol+i.symbol, probability=probabilidad, code="", children=[])
+            combinaciones += combine_dependence(matrix, nodo, conjunto, longitud-1)
         return(combinaciones)
 
 def mean_codeword_lenght(code_tree):
